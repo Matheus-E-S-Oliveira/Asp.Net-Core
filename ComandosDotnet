@@ -1,0 +1,7 @@
+//Comando para saber tipos de projetos disponiveis para seem usados
+dotnet new --list
+//Comando para criar porjeto numa pasta especifica e falar que não estara usando https
+dotnet new projeto desejado -o Nome do projeto --no-https
+dotnet new mvc -o GerenciadorTarefas --no-https
+//Coamndo para não ficar precisando reiniciar servidor apos cada mudança
+dotnet watch
