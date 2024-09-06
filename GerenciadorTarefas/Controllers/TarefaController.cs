@@ -20,4 +20,15 @@ public class TarefaController : Controller
         ViewData["Title"] = "Lista de Tarefas"; 
         return View(viewModel);
     }
+
+    public IActionResult Delete(int id)
+    {
+        var tarefa = _context.Tarefas.Find(id);
+        if(tarefa == null){
+            return NotFound();
+        }
+        _context.Tarefas.Remove(tarefa);
+        _context.SaveChanges();
+        return RedirectToAction(nameof(Index));
+    }
 }
