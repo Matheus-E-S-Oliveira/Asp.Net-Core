@@ -5,3 +5,15 @@ dotnet new projeto desejado -o Nome do projeto --no-https
 dotnet new mvc -o GerenciadorTarefas --no-https
 //Coamndo para não ficar precisando reiniciar servidor apos cada mudança
 dotnet watch
+//Verifica erros na aplicação
+dotnet build
+//restaura packages
+dotnet restore
+//adiciona packages
+dotnet add package <Nome do projeto> --version <Versão dejesada>
+//Cria migrations
+dotnet ef migrations add <Nome do migrations>
+//Remove ultimo migrations
+dotnet ef migrations remove
+//Sobe migrations para Db
+dotnet ef database update
