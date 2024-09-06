@@ -1,0 +1,29 @@
+# Arquivos binários e de compilação
+/bin/
+/obj/
+/*.dll
+/*.exe
+/*.pdb
+/*.cache
+
+# Configurações de usuário do Visual Studio
+.vscode/
+/*.suo
+/*.user
+/*.userosscache
+/*.suo
+/*.ncb
+/*.sdf
+/*.opensdf
+/*.tlog
+/*.vscode
+
+# Configurações do Rider
+.idea/
+
+# Pacotes de NuGet
+*.nupkg
+*.snupkg
+*.dotnet
+
+appsettings.json
