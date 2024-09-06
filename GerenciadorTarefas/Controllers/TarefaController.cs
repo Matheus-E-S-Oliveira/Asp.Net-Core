@@ -35,11 +35,11 @@ public class TarefaController : Controller
     public IActionResult Create()
     {
         ViewData["Title"] = "Cadastrar Tarefa";
-        return View();
+        return View("Form");
     }
 
     [HttpPost]
-    public IActionResult CreateTarefa(CreateTarefaViewModel date)
+    public IActionResult Create(FormTarefaViewModel date)
     {
         var tarefa = new Tarefa(date.Data, date.Titulo);
         _context.Add(tarefa);
@@ -53,13 +53,13 @@ public class TarefaController : Controller
         if(tarefa == null){
             return NotFound();
         }
-        var viewModel = new EditTarefaViewModel { Titulo = tarefa.Titulo, Data = tarefa.Data};
+        var viewModel = new FormTarefaViewModel { Titulo = tarefa.Titulo, Data = tarefa.Data};
         ViewData["Title"] = "Editar Tarefa";
-        return View(viewModel);
+        return View("Form", viewModel);
     }
 
     [HttpPost]
-    public IActionResult Edit(int id, EditTarefaViewModel date){
+    public IActionResult Edit(int id, FormTarefaViewModel date){
         var tarefa = _context.Tarefas.Find(id);
         if(tarefa == null)
         {
