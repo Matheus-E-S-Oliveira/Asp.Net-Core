@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GerenciadorTarefas.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240906113748_CreateTableTarefa")]
+    [Migration("20240906114728_CreateTableTarefa")]
     partial class CreateTableTarefa
     {
         /// <inheritdoc />
@@ -30,7 +30,7 @@ namespace GerenciadorTarefas.Migrations
                         .HasColumnName("id");
 
                     b.Property<bool>("Completo")
-                        .HasColumnType("BOOLEAN")
+                        .HasColumnType("tinyint(1)")
                         .HasColumnName("completo");
 
                     b.Property<DateTime>("Data")

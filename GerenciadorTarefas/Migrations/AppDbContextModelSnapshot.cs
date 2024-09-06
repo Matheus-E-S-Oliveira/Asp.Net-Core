@@ -27,7 +27,7 @@ namespace GerenciadorTarefas.Migrations
                         .HasColumnName("id");
 
                     b.Property<bool>("Completo")
-                        .HasColumnType("BOOLEAN")
+                        .HasColumnType("tinyint(1)")
                         .HasColumnName("completo");
 
                     b.Property<DateTime>("Data")

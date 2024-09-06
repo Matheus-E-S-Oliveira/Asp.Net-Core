@@ -25,6 +25,6 @@ public class TarefaEntityConfig : IEntityTypeConfiguration<Tarefa>
 
         builder.Property(x => x.Completo)
             .HasColumnName("completo")
-            .HasColumnType("BOOLEAN");
+            .HasColumnType("tinyint(1)");
     }
 }

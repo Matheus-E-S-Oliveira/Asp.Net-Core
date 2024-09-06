@@ -23,7 +23,7 @@ namespace GerenciadorTarefas.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     data = table.Column<DateTime>(type: "Date", nullable: false),
                     titulo = table.Column<string>(type: "nvarchar(100)", nullable: false),
-                    completo = table.Column<bool>(type: "BOOLEAN(1)", nullable: false)
+                    completo = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
