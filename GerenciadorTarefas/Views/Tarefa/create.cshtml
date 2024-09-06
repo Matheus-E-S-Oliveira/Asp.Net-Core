@@ -1,16 +1,18 @@
+@model CreateTarefaViewModel
+
 <div class="row">
     <div class="col text-center">
         <h1>@ViewData["Title"]</h1>
     </div>
 </div>
-<form>
+<form action="CreateTarefa" method="post">
   <div class="mb-3">
-    <label class="form-label">Titulo</label>
-    <input type="text" class="form-control">
+    <label asp-for="Titulo" class="form-label">Título</label>
+    <input asp-for="Titulo" type="text" class="form-control">
   </div>
   <div class="mb-3">
-    <label class="form-label">Data</label>
-    <input type="date" class="form-control">
+    <label asp-for="Data" class="form-label">Data</label>
+    <input asp-for="Data" type="date" class="form-control">
   </div>
   <button type="submit" class="btn btn-primary">Cadastrar Tarefa</button>
 </form>

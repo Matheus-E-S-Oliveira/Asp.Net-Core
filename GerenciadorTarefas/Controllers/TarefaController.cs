@@ -37,4 +37,13 @@ public class TarefaController : Controller
         ViewData["Title"] = "Cadastrar Tarefa";
         return View();
     }
+
+    [HttpPost]
+    public IActionResult CreateTarefa(CreateTarefaViewModel date)
+    {
+        var tarefa = new Tarefa(date.Data, date.Titulo);
+        _context.Add(tarefa);
+        _context.SaveChanges();
+        return RedirectToAction(nameof(Index));
+    }
 }
