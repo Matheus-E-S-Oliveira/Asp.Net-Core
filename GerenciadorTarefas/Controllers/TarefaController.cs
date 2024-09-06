@@ -57,4 +57,29 @@ public class TarefaController : Controller
         ViewData["Title"] = "Editar Tarefa";
         return View(viewModel);
     }
+
+    [HttpPost]
+    public IActionResult Edit(int id, EditTarefaViewModel date){
+        var tarefa = _context.Tarefas.Find(id);
+        if(tarefa == null)
+        {
+            return NotFound();
+        }
+        tarefa.Titulo = date.Titulo;
+        tarefa.Data = date.Data;
+        _context.SaveChanges();
+        return RedirectToAction(nameof(Index));
+    }
+
+    public IActionResult ToComplete(int id)
+    {
+        var tarefa = _context.Tarefas.Find(id);
+        if(tarefa == null)
+        {
+            return NotFound();
+        }
+        tarefa.Completo = true;
+        _context.SaveChanges();
+        return RedirectToAction(nameof(Index));
+    }
 }
