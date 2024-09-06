@@ -15,7 +15,7 @@ public class TarefaController : Controller
 
     public IActionResult Index()
     {
-        var tarefa = _context.Tarefas.ToList();
+        var tarefa = _context.Tarefas.OrderBy(x => x.Data).ToList();
         var viewModel = new TarefaViewModel { Tarefas = tarefa };
         ViewData["Title"] = "Lista de Tarefas"; 
         return View(viewModel);

@@ -22,14 +22,24 @@
                     <tr>
                         <th scope="row">@tarefa.Id</th>
                         <td>@tarefa.Titulo</td>
-                        <td>@tarefa.Data</td>
-                        <td>@tarefa.Completo</td>
+                        <td>@tarefa.Data.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            @if(tarefa.Completo)
+                            {
+                                <i class="text-success" data-feather="check-square"></i>
+                            }
+                            else
+                            {
+                                <i class="text-danger" data-feather="x-square"></i>
+                            }
+                        </td>
                         <td>
                             <a 
                                 asp-controller="Tarefa"
                                 asp-action="ToComplete"
                                 asp-route-id="@tarefa.Id"
-                                class="btn btn-sm btn-success"
+                                onclick="return confirm('Tem certeza que deseja concluir essa tarefa?')"
+                                class="btn btn-sm btn-success @(tarefa.Completo ? "disabled" : "")"
                             >
                                 Concluir
                             </a>
@@ -37,7 +47,7 @@
                                 asp-controller="Tarefa"
                                 asp-action="Edit"
                                 asp-route-id="@tarefa.Id"
-                                class="btn btn-sm btn-warning"
+                                class="btn btn-sm btn-warning @(tarefa.Completo ? "disabled" : "")"
                             > 
                                 Editar
                             </a>
@@ -45,6 +55,7 @@
                                 asp-controller="Tarefa"
                                 asp-action="Delete"
                                 asp-route-id="@tarefa.Id"
+                                onclick="return confirm('Tem certeza que deseja excluir essa tarefa?')"
                                 class="btn btn-sm btn-danger"
                             >
                                 Excluir
