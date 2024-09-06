@@ -31,4 +31,10 @@ public class TarefaController : Controller
         _context.SaveChanges();
         return RedirectToAction(nameof(Index));
     }
+
+    public IActionResult Create()
+    {
+        ViewData["Title"] = "Cadastrar Tarefa";
+        return View();
+    }
 }
