@@ -46,4 +46,15 @@ public class TarefaController : Controller
         _context.SaveChanges();
         return RedirectToAction(nameof(Index));
     }
+
+    public IActionResult Edit(int id)
+    {
+        var tarefa = _context.Tarefas.Find(id);
+        if(tarefa == null){
+            return NotFound();
+        }
+        var viewModel = new EditTarefaViewModel { Titulo = tarefa.Titulo, Data = tarefa.Data};
+        ViewData["Title"] = "Editar Tarefa";
+        return View(viewModel);
+    }
 }

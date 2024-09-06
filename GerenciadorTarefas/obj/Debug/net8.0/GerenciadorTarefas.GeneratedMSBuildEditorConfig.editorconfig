@@ -38,6 +38,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyZWZhXGNyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Progamas(C)/GitHub/Asp.Net-Core/GerenciadorTarefas/Views/Tarefa/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyZWZhXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Progamas(C)/GitHub/Asp.Net-Core/GerenciadorTarefas/Views/Tarefa/index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyZWZhXGluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

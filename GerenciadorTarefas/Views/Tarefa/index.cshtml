@@ -26,7 +26,14 @@
                         <td>@tarefa.Completo</td>
                         <td>
                             <a href="" class="btn btn-sm btn-success">Completar</a>
-                            <a href="" class="btn btn-sm btn-warning">Editar</a>
+                            <a 
+                                asp-controller="Tarefa"
+                                asp-action="Edit"
+                                asp-route-id="@tarefa.Id"
+                                class="btn btn-sm btn-warning"
+                            > 
+                                Editar
+                            </a>
                             <a 
                                 asp-controller="Tarefa"
                                 asp-action="Delete"
