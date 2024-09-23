@@ -1,0 +1,419 @@
+@using System.IO
+@using System.Text
+@using EstruturaPDF.Helpers
+
+@{
+    // Caminho para o diretório que contém os SVGs
+    var base64Svgs = PdfHelper.ConvertAllSvgsToBase64();
+    var verifica = false;
+    var data = DateTime.Now;
+    string texto = null;
+    var base64String =
+    "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TbUfehf9Mkna40xdEf2s/tb2jXt9JmACJmACJmACJmACMxOwkzUzIx9RHoElUorc6ZFCONWoOC1EgVAjvCwcF5TzqEmi/xNNWkk9pFcQx/LfODfcxwhGZH+SlocDc8MUk1ADtUnUjT0kmr4yJ0p+K+Wawi4vad5wBJecAAHpfjhQ/EmjWBwo+oQRweP3NKC1mYAJmIAJmIAJmIAJ9JCAnaweXtQObAlhjBVinTgypNTR0BiZ98ckCfilJC1WcB+3SZpvimNvDyep4DCFDqOJMkqJmV0jiRS/zHCkaBhLSqTV/goh9UEmYAImYAImYAIm0D8CdrL6d037tCNENIguzcluHZE5J2WPCNVUtrKk+eMvssjS6HFIo1+a+yUqfgh22EzABEzABEzABEzABEygEAE7WYUw+SATMAETMAETMAETMAETMAETKEbATlYxTj7KBEzABEzABEzABEzABEzABAoRsJNVCJMPMgETMAETMAETMAETMAETMIFiBOxkFePko0zABEzABEzABEzABEzABEygEAE7WYUw+SATMAETMAETMAETMAETMAETKEbATlYxTj7KBEzABEzABEzABEzABEzABAoRsJNVCJMPMgETMAETMAETMAETMAETMIFiBOxkFePko0zABEzABEzABEzABEzABEygEAE7WYUw+SATMAETMAETMAETMAETMAETKEbATlYxTj7KBEzABEzABEzABEzABEzABAoRsJNVCJMPMgETMAETMAETMAETMAETMIFiBOxkFePko0zABEzABEzABEzABEzABEygEAE7WYUw+SATMAETMAETMAETMAETMAETKEbATlYxTj7KBEzABEzABEzABEzABEzABAoRsJNVCJMPMgETMAETMAETMAETMAETMIFiBOxkFePko0zABEzABEzABEzABEzABEygEAE7WYUw+SATMAETMAETMAETMAETMAETKEbATlYxTj7KBEzABEzABEzABEzABEzABAoRsJNVCJMPMgETMAETMAETMAETMAETMIFiBOxkFePko0zABEzABEzABEzABEzABEygEAE7WYUw+SATMAETMAETMAETMAETMAETKEbg/wE7E8RQwgsEhwAAAABJRU5ErkJggg==";
+    var imageSource = $"data:image/png;base64,{base64String}";
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .a4 {
+            width: 794px;
+            /* Largura A4 */
+            margin: 0 auto;
+            /* Centraliza a div na página */
+            border: 1px solid #000;
+            /* Opcional: Adiciona uma borda para visualizar a div */
+            padding: 20px;
+            /* Opcional: Adiciona algum espaço interno */
+            box-sizing: border-box;
+            /* Inclui borda e padding no cálculo de largura e altura */
+        }
+
+        h2 {
+            font-size: 22px;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+        }
+
+        h3 {
+            font-size: 18px;
+        }
+
+        div {
+            display: flex;
+            align-items: normal;
+            justify-content: center;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        table {
+            caption-side: bottom;
+            border-collapse: separate;
+        }
+
+        th,
+        td {
+            /* Borda cinza clara */
+            text-align: center;
+            /* Alinhamento à esquerda */
+            padding: 15px;
+            /* Espaçamento interno */
+            width: 50%;
+            /* Cada coluna ocupa 50% da tabela */
+            border-radius: 13px;
+            box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .td-custom {
+            text-align: left;
+        }
+
+        .warning-message {
+            color: darkred;
+            font-size: 17px;
+            display: flex;
+            align-items: center; // Alinha verticalmente o texto
+            margin-right: 2px; // Espaçamento entre o texto e o formulário, ajuste conforme necessário
+            flex: 0 1 auto;
+        }
+
+        .container-custom {
+            border-radius: 13px;
+            padding: 7px;
+            box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .avoid-break {
+            page-break-inside: avoid;
+        }
+
+        .break-page {
+            page-break-before: always;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h2>Ficha Anamnese</h2>
+        <h3>Histórico Médico</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Pergunta</th>
+                    <th>Resposta Fornecida</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="td-custom">Gestante?</td>
+                    <td>@Html.Raw(PdfHelper.RenderRadioButtonIcons(verifica, base64Svgs))</td>
+                </tr>
+                <tr>
+                    <td class="td-custom">Diabetes?</td>
+                    <td>@Html.Raw(PdfHelper.RenderRadioButtonIcons(verifica, base64Svgs))</td>
+                </tr>
+                <tr>
+                    <td class="td-custom">Possui algum tipo de alergia?</td>
+                    <td>@Html.Raw(PdfHelper.RenderRadioButtonIcons(verifica, base64Svgs))</td>
+                </tr>
+                <tr>
+                    <td class="td-custom">Problemas na tireoide?</td>
+                    <td>@Html.Raw(PdfHelper.RenderRadioButtonIcons(verifica, base64Svgs))</td>
+                </tr>
+                <tr>
+                    <td class="td-custom">Bariátrica?</td>
+                    <td>@Html.Raw(PdfHelper.RenderRadioButtonIcons(verifica, base64Svgs))</td>
+                </tr>
+                <tr>
+                    <td class="td-custom">Possui psoríase?</td>
+                    <td>@Html.Raw(PdfHelper.RenderRadioButtonIcons(verifica, base64Svgs))</td>
+                </tr>
+                <tr>
+                    <td class="td-custom">Algum outro problema que seja necessário nos informar?</td>
+                    <td>@Html.Raw(PdfHelper.RenderRadioButtonIcons(verifica, base64Svgs))</td>
+                </tr>
+                <tr>
+                    <td class="td-custom">Se sim, especifique</td>
+                    <td>@Html.Raw(PdfHelper.PreencherCampoVazio(texto))</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <h3>Histórico de Traumas e Lesões</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Pergunta</th>
+                    <th>Resposta Fornecida</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="td-custom">Já teve ou tem unhas das mãos encravadas?</td>
+                    <td>@Html.Raw(PdfHelper.RenderRadioButtonIcons(verifica, base64Svgs))</td>
+                </tr>
+                <tr>
+                    <td class="td-custom">Como que está seu leito ungueal?</td>
+                    <td>@Html.Raw(PdfHelper.RenderRadioButtonIcons(verifica, base64Svgs))</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="container-custom">
+            <span class="warning-message">
+                Traumas ou lesões nas unhas podem afetar a durabilidade de alongamentos e tratamentos. Se você teve
+                problemas com a manutenção de tratamentos, isso pode ser um fator a ser considerado.
+                <br>
+                Obs: unhas oleosas e unhas com deficiências de saúde tendem a comprometer a durabilidade do alongamento.
+            </span>
+        </div>
+        <br>
+        <h3>Histórico de Problemas nas Unhas</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Pergunta</th>
+                    <th>Resposta Fornecida</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="td-custom">Onicocriptose (unha encravada)?</td>
+                    <td>@Html.Raw(PdfHelper.RenderRadioButtonIcons(verifica, base64Svgs))</td>
+                </tr>
+                <tr>
+                    <td class="td-custom">Onicofagia (Roer as unhas)?</td>
+                    <td>@Html.Raw(PdfHelper.RenderRadioButtonIcons(verifica, base64Svgs))</td>
+                </tr>
+                <tr>
+                    <td class="td-custom">Já teve algum problema de onicomicose (micose, fungos ou outros)?</td>
+                    <td>@Html.Raw(PdfHelper.RenderRadioButtonIcons(verifica, base64Svgs))</td>
+                </tr>
+                <tr>
+                    <td class="td-custom">Se sim, especifique</td>
+                    <td>@Html.Raw(PdfHelper.PreencherCampoVazio(texto))</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Avaliação das Condições Ungueais</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Pergunta</th>
+                    <th>Resposta Fornecida</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="td-custom">Descamações na lâmina ungueal?</td>
+                    <td>@Html.Raw(PdfHelper.RenderRadioButtonIcons(verifica, base64Svgs))</td>
+                </tr>
+                <tr>
+                    <td class="td-custom">Estrias na lâmina ungueal?</td>
+                    <td>@Html.Raw(PdfHelper.RenderRadioButtonIcons(verifica, base64Svgs))</td>
+                </tr>
+                <tr>
+                    <td class="td-custom">Manchas na lâmina ungueal?</td>
+                    <td>@Html.Raw(PdfHelper.RenderRadioButtonIcons(verifica, base64Svgs))</td>
+                </tr>
+                <tr>
+                    <td class="td-custom">Descolamento da lâmina ungueal?</td>
+                    <td>@Html.Raw(PdfHelper.RenderRadioButtonIcons(verifica, base64Svgs))</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Hábitos e Exposições</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Pergunta</th>
+                    <th>Resposta Fornecida</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="td-custom">Pratica esportes de impacto?</td>
+                    <td>@Html.Raw(PdfHelper.RenderRadioButtonIcons(verifica, base64Svgs))</td>
+                </tr>
+                <tr>
+                    <td class="td-custom">Frequenta piscina ou mar diariamente?</td>
+                    <td>@Html.Raw(PdfHelper.RenderRadioButtonIcons(verifica, base64Svgs))</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Cuidados e Rotina</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Pergunta</th>
+                    <th>Resposta Fornecida</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="td-custom">Já fez a remoção de alongamento em casa?</td>
+                    <td>@Html.Raw(PdfHelper.RenderRadioButtonIcons(verifica, base64Svgs))</td>
+                </tr>
+                <tr>
+                    <td class="td-custom">Suas unhas naturais já foram compridas?</td>
+                    <td>@Html.Raw(PdfHelper.RenderRadioButtonIcons(verifica, base64Svgs))</td>
+                </tr>
+                <tr>
+                    <td class="td-custom">Vai na manicure frequentemente?</td>
+                    <td>@Html.Raw(PdfHelper.RenderRadioButtonIcons(verifica, base64Svgs))</td>
+                </tr>
+                <tr>
+                    <td class="td-custom">Já utilizou alongamento antes?</td>
+                    <td>@Html.Raw(PdfHelper.RenderRadioButtonIcons(verifica, base64Svgs))</td>
+                </tr>
+                <tr>
+                    <td class="td-custom">Porque deseja utilizar alongamento:</td>
+                    <td>@Html.Raw(PdfHelper.PreencherCampoVazio(texto))</td>
+                </tr>
+                <tr>
+                    <td class="td-custom">Qual o tipo de alongamento e por quanto tempo, especifique:</td>
+                    <td>@Html.Raw(PdfHelper.PreencherCampoVazio(texto))</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="section avoid-break">
+            <h3>Tipos de Unhas e Mãos</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pergunta</th>
+                        <th>Resposta Fornecida</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="td-custom">Comprimento das Unhas:</td>
+                        <td>@Html.Raw(PdfHelper.RenderRadioButtonIcons(verifica, base64Svgs))</td>
+                    </tr>
+                    <tr>
+                        <td class="td-custom">Forma Predominante das Unhas:</td>
+                        <td>@Html.Raw(PdfHelper.RenderRadioButtonIcons(verifica, base64Svgs))</td>
+                    </tr>
+                    <tr>
+                        <td class="td-custom">Tipo de Pele das Mãos:</td>
+                        <td>@Html.Raw(PdfHelper.RenderRadioButtonIcons(verifica, base64Svgs))</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="container-custom">
+                <span class="warning-message">
+                    Atenção: Em alguns casos, unhas roídas podem impedir a realização do procedimento de manutenção,
+                    sendo
+                    necessário realizar uma nova aplicação. Neste caso, será cobrado o valor integral de uma nova
+                    aplicação.
+                    Além disso, não há garantia de que o resultado final das unhas roídas fique 100% satisfatório, pois
+                    o
+                    leito
+                    da unha costuma ser muito curto.
+                </span>
+            </div>
+        </div>
+        <br>
+        <h3>Documentação de Termos e Observações</h3>
+        <span class="warning-message">
+
+            <p>Manutenção das Unhas Alongadas:</p>
+            ● Este processo requer cuidados regulares, com manutenções que devem ser realizadas dentro do prazo
+            estipulado. Os intervalos para manutenção podem variar entre 10, 15, 20 e 25 dias, de acordo com os cuidados
+            que você tem com suas unhas e o crescimento natural delas. A frequência da manutenção será determinada pela
+            Nail Designer responsável.
+        </span>
+        <span>
+            <br>
+            Quebra do Alongamento:
+            <br>
+            ● O alongamento de unhas, embora mais resistente do que as unhas naturais, pode sim quebrar. Caso isso
+            ocorra, as unhas quebradas podem ser restauradas pelo profissional.
+        </span>
+        <span>
+            <br>
+            Durabilidade do Alongamento:
+            <br>
+            ● A durabilidade do seu alongamento é influenciada em 50% pela aplicação do profissional (técnica correta e
+            uso dos melhores produtos do mercado) e 50% pelos cuidados que você tem com as suas unhas, qualidade das
+            suas unhas naturais e o cumprimento dos prazos de manutenção.
+        </span>
+        <span>
+            <br>
+            Observação: Unhas quebradas ou caídas não têm garantia. Para manutenção dessas unhas, será cobrada uma taxa
+            de serviço (R$ _ por unha).
+        </span>
+        <span>
+            <br>
+            Autorização para Registro Fotográfico:
+            <br>
+            Autorizo o registro fotográfico do trabalho realizado (“antes” e “depois”) para fins de documentação e
+            divulgação em livros, redes sociais ou qualquer material publicitário. A autorização é concedida
+            gratuitamente, sem que eu tenha a reclamar qualquer crédito ou outra compensação.
+            <br>
+            <img src="data:image/svg+xml;base64,@base64Svgs["checkbocCheck"]" alt="Check Box" />Autorizo
+        </span>
+        <br>
+        <table>
+            <thead>
+                <tr>
+                    <th>Pergunta</th>
+                    <th>Resposta Fornecida</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="td-custom">Menor de idade?</td>
+                    <td>@Html.Raw(PdfHelper.RenderRadioButtonIcons(verifica, base64Svgs))</td>
+                </tr>
+                <tr>
+                    <td class="td-custom">Nome do responsável</td>
+                    <td>@Html.Raw(PdfHelper.PreencherCampoVazio(texto))</td>
+                </tr>
+                <tr>
+                    <td class="td-custom">RG do responsável</td>
+                    <td>@Html.Raw(PdfHelper.PreencherCampoVazio(texto))</td>
+                </tr>
+            </tbody>
+        </table>
+        <span>
+            <br>
+            Eu, @Html.Raw(PdfHelper.PreencherCampoVazio(texto)), do RG @Html.Raw(PdfHelper.PreencherCampoVazio(texto)),
+            autorizo minha (meu) filha(o) a fazer o procedimento de
+            alongamento de unhas.
+        </span>
+        <span>
+            <br>
+            Declaração de Veracidade:
+            <br>
+            Afirmo que estou sendo verdadeira ao preencher essa ficha, e me responsabilizo caso ocorra algo que seja
+            prejudicial por ter omitido informações.
+            <img src="@imageSource" alt="Descrição da imagem" />
+        </span>
+        <br>
+        <span>Data Assinatura:</span>
+        <span>@Html.Raw(PdfHelper.FormatarData(data))</span>
+        <table>
+            <thead>
+                <tr>
+                    <th>Data Atendimento</th>
+                    <th>Data Manutenção recomendada</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Html.Raw(PdfHelper.FormatarData(data))</td>
+                    <td>@Html.Raw(PdfHelper.FormatarData(data))</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+<a href="@Url.Action("GeneratePdf", "Pdf")" class="btn btn-primary">Gerar PDF</a>
+
+</html>

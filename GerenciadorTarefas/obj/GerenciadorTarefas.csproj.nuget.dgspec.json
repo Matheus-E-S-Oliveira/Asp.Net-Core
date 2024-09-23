@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Progamas(C)\\GitHub\\Asp.Net-Core\\GerenciadorTarefas\\GerenciadorTarefas.csproj": {}
+    "E:\\GitHub\\Asp.Net-Core\\GerenciadorTarefas\\GerenciadorTarefas.csproj": {}
   },
   "projects": {
-    "C:\\Progamas(C)\\GitHub\\Asp.Net-Core\\GerenciadorTarefas\\GerenciadorTarefas.csproj": {
+    "E:\\GitHub\\Asp.Net-Core\\GerenciadorTarefas\\GerenciadorTarefas.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Progamas(C)\\GitHub\\Asp.Net-Core\\GerenciadorTarefas\\GerenciadorTarefas.csproj",
+        "projectUniqueName": "E:\\GitHub\\Asp.Net-Core\\GerenciadorTarefas\\GerenciadorTarefas.csproj",
         "projectName": "GerenciadorTarefas",
-        "projectPath": "C:\\Progamas(C)\\GitHub\\Asp.Net-Core\\GerenciadorTarefas\\GerenciadorTarefas.csproj",
-        "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
-        "outputPath": "C:\\Progamas(C)\\GitHub\\Asp.Net-Core\\GerenciadorTarefas\\obj\\",
+        "projectPath": "E:\\GitHub\\Asp.Net-Core\\GerenciadorTarefas\\GerenciadorTarefas.csproj",
+        "packagesPath": "C:\\Users\\marhe\\.nuget\\packages\\",
+        "outputPath": "E:\\GitHub\\Asp.Net-Core\\GerenciadorTarefas\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\marhe\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"

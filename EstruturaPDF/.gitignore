@@ -1,0 +1,15 @@
+# Ignorar dependências do NuGet
+packages/
+*.nupkg
+
+# Ignorar arquivos gerados pela compilação
+/bin/
+/obj/
+
+# Ignorar arquivos de configuração do Visual Studio
+*.user
+*.suo
+*.vs/
+
+# Ignorar arquivos de logs
+*.log
