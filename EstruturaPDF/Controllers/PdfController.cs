@@ -23,6 +23,7 @@ public class PdfController : Controller
     {
         var htmlContent = RenderViewToString("YourViewName", null);// Ajuste conforme necessário
 
+
         var renderer = new ChromePdfRenderer();
         var pdfDocument = renderer.RenderHtmlAsPdf(htmlContent);
 
