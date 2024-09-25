@@ -75,7 +75,6 @@ public static class PdfHelper
 
             // Adicionar a linha HTML para cada botão de rádio
             html.Append($"<img style='align-items: center; vertical-align: bottom;' src='data:image/svg+xml;base64,{icon}' alt='Check Box' /> {item.Value}");
-            html.Append($"<input type='radio' name='leito' value='{item.Key}' {(isChecked ? "checked" : "")} style='display:none;' />");
         }
 
         return html.ToString();
@@ -92,5 +91,14 @@ public static class PdfHelper
         html.Append($"<img src='data:image/svg+xml;base64,{icon}' alt='Check Box' /> Autorizo");
 
         return html.ToString();
+    }
+    public static string GetSvgAsBase64()
+    {
+        var base64Svgs = ConvertAllSvgsToBase64();
+
+        var icon = base64Svgs.ContainsKey("icon") ? base64Svgs["icon"] : null;
+    
+        return icon;
+
     }
 }

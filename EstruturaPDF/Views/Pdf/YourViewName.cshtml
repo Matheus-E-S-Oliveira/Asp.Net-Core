@@ -45,17 +45,31 @@
 
 <head>
     <style>
+        body {
+            margin: 0;
+            /* Remova margens externas */
+            padding: 20px;
+            /* Adicione padding se necessário */
+            width: 100%;
+            /* Preencha a largura total */
+            height: auto;
+            /* Altura automática para o conteúdo */
+            box-sizing: border-box;
+            /* Inclui padding e bordas na largura total */
+            color: #4e4e4e
+        }
+
         h2 {
-            font-size: 22px;
+            font-size: 18px;
             align-items: center;
             justify-content: center;
             display: flex;
         }
 
         h3 {
-            font-size: 20px;
+            font-size: 17px;
             text-align: left;
-            font-weight: 600;
+            font-weight: 400;
             margin-bottom: 12px;
             margin-right: auto;
             margin-left: 6px;
@@ -81,12 +95,12 @@
             /* Borda cinza clara */
             text-align: center;
             /* Alinhamento à esquerda */
-            padding: 15px;
+            padding: 3px;
             /* Espaçamento interno */
             width: 50%;
             /* Cada coluna ocupa 50% da tabela */
-            border-radius: 13px;
-            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.085);
         }
 
         .td-custom {
@@ -94,8 +108,8 @@
         }
 
         .warning-message {
-            color: darkred;
-            font-size: 17px;
+            color: rgb(53, 52, 52);
+            font-size: 15px;
             display: flex;
             align-items: center; // Alinha verticalmente o texto
             margin-right: 2px; // Espaçamento entre o texto e o formulário, ajuste conforme necessário
@@ -114,7 +128,7 @@
         .container-custom {
             border-radius: 13px;
             padding: 7px;
-            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5);
+            box-shadow: 0px 0px 1px #ededed;
             width: 98%;
             text-align: left !important;
         }
@@ -129,9 +143,10 @@
         }
 
         .title-message {
-            font-size: 19px;
+            font-size: 16px;
             text-align: left;
             margin-right: auto;
+            color: #414040
         }
 
         .img-custom {
@@ -141,7 +156,7 @@
         }
 
         .text-message {
-            font-size: 17px;
+            font-size: 15px;
             display: flex;
             align-items: center; // Alinha verticalmente o texto
             margin-right: 2px; // Espaçamento entre o texto e o formulário, ajuste conforme necessário
@@ -158,14 +173,25 @@
         }
 
         hr {
-            border: 1px solid #bfbfbf;
+            border: 1px solid #ededed;
             margin: 19px 0;
             width: -webkit-fill-available;
+        }
+
+        .img-reduced {
+            height: 100px;
+            /* Ajuste para a altura desejada */
+            width: auto;
+            /* Mantém a proporção da imagem */
         }
     </style>
 </head>
 
 <body>
+    <div style='text-align: center;'>
+        <img style='width:80px; height:80px;' src='data:image/svg+xml;base64,@base64Svgs["icon"]' alt='Ícone'/>
+        <br>
+    </div>
     <div>
         <h2>Ficha Anamnese</h2>
         <h3>Histórico Médico</h3>
@@ -180,7 +206,7 @@
                 <tbody>
                     <tr>
                         <td class="td-custom">Gestante?</td>
-                        <td>@Html.Raw(PdfHelper.RenderRadioButtonIcons(verifica, base64Svgs))</td>
+                        <td>@Html.Raw(PdfHelper.RenderRadioButtonIcons(true, base64Svgs))</td>
                     </tr>
                     <tr>
                         <td class="td-custom">Diabetes?</td>
@@ -244,9 +270,8 @@
                     alongamento.
                 </span>
             </div>
-        </div>
-        <br>
-        <div class="section avoid-break">
+
+            <br>
             <h3>Histórico de Problemas nas Unhas</h3>
             <table>
                 <thead>
@@ -274,6 +299,8 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+        <div class="section avoid-break">
             <h3>Avaliação das Condições Ungueais</h3>
             <table>
                 <thead>
@@ -320,8 +347,6 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
-        <div class="section avoid-break">
             <h3>Cuidados e Rotina</h3>
             <table>
                 <thead>
@@ -371,12 +396,12 @@
                         <td>@Html.Raw(PdfHelper.RederRadioGruop(comprimentoUnha, base64Svgs, "medio"))</td>
                     </tr>
                     <tr>
-                        <td class="td-custom">Forma Predominante das Unhas:</td>
-                        <td>@Html.Raw(PdfHelper.RederRadioGruop(tipoUnha, base64Svgs, "roida"))</td>
-                    </tr>
-                    <tr>
                         <td class="td-custom">Tipo de Pele das Mãos:</td>
                         <td>@Html.Raw(PdfHelper.RederRadioGruop(tipoMao, base64Svgs, "seca"))</td>
+                    </tr>
+                    <tr>
+                        <td class="td-custom">Forma Predominante das Unhas:</td>
+                        <td>@Html.Raw(PdfHelper.RederRadioGruop(tipoUnha, base64Svgs, "roida"))</td>
                     </tr>
                 </tbody>
             </table>
@@ -445,7 +470,7 @@
                 <span class="title-message">
                     Autorização para Registro Fotográfico:
                 </span>
-                <span>
+                <span class="warning-message">
                     Autorizo o registro fotográfico do trabalho realizado (“antes” e “depois”) para fins de
                     documentação e
                     divulgação em livros, redes sociais ou qualquer material publicitário. A autorização é concedida
@@ -472,7 +497,7 @@
                         </tr>
                         <tr>
                             <td class="td-custom">Nome do responsável</td>
-                            <td class="td-custom">@Html.Raw(PdfHelper.PreencherCampoVazio(texto))</td>
+                            <td class="td-custom">@Html.Raw(PdfHelper.PreencherCampoVazio("José Aldo"))</td>
                         </tr>
                         <tr>
                             <td class="td-custom">RG do responsável</td>
@@ -480,7 +505,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <span>
+                <span class="warning-message">
                     <br>
                     Eu, @Html.Raw(PdfHelper.PreencherCampoVazio(texto)), do RG
                     @Html.Raw(PdfHelper.PreencherCampoVazio(texto)),
@@ -488,19 +513,18 @@
                     alongamento de unhas.
                 </span>
             </div>
-        </div>
-        <div class="section avoid-break">
+            <br>
             <div class="text-message">
                 <span class="title-message">
                     Declaração de Veracidade:
                 </span>
-                <span class="text-message">
+                <span class="warning-message">
                     Afirmo que estou sendo verdadeira ao preencher essa ficha, e me responsabilizo caso ocorra algo que
                     seja
                     prejudicial por ter omitido informações.
                 </span>
                 <hr>
-                <img src="@imageSource" alt="Descrição da imagem" />
+                <img class="img-reduced" src="@imageSource" alt="Descrição da imagem" />
                 <br>
                 <span>Data Assinatura:</span>
                 <span>@Html.Raw(PdfHelper.FormatarData(data))</span>
@@ -523,6 +547,5 @@
         </div>
     </div>
 </body>
-<a href="@Url.Action("GeneratePdf", "Pdf")" class="btn btn-primary">Gerar PDF</a>
-
 </html>
+<a href="@Url.Action("GeneratePdf", "Pdf")" class="btn btn-primary">Gerar PDF</a>
