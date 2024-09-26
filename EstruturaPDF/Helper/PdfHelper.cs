@@ -92,13 +92,13 @@ public static class PdfHelper
 
         return html.ToString();
     }
-    public static string GetSvgAsBase64()
+    public static string ConvertImageToBase64(string filePath)
     {
-        var base64Svgs = ConvertAllSvgsToBase64();
-
-        var icon = base64Svgs.ContainsKey("icon") ? base64Svgs["icon"] : null;
-    
-        return icon;
-
+        if (!File.Exists(filePath))
+            throw new FileNotFoundException("Arquivo não encontrado.", filePath);
+        
+        var imageBytes = File.ReadAllBytes(filePath);
+        var base64String = Convert.ToBase64String(imageBytes);
+        return $"data:image/png;base64,{base64String}";
     }
 }

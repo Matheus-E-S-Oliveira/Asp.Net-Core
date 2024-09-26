@@ -22,16 +22,9 @@ public class PdfController : Controller
 
     public IActionResult GeneratePdf()
     {
-        var htmlContent = RenderViewToString("YourViewName", null);// Ajuste conforme necessário
-
+        var htmlContent = RenderViewToString("YourViewName", null);
         ChromePdfRenderer renderer = new ChromePdfRenderer();
-        //cabeçalho
 
-        renderer.RenderingOptions.TextHeader.DrawDividerLine = true;
-        renderer.RenderingOptions.TextHeader.CenterText = "Dani Nails";
-        renderer.RenderingOptions.TextHeader.LeftText = "DN";
-        renderer.RenderingOptions.TextHeader.Font = IronSoftware.Drawing.FontTypes.Courier;
-        renderer.RenderingOptions.TextHeader.FontSize = 12;
         //rodape
         renderer.RenderingOptions.TextFooter.DrawDividerLine = true;
         renderer.RenderingOptions.TextHeader.Font = IronSoftware.Drawing.FontTypes.Arial;
@@ -40,16 +33,16 @@ public class PdfController : Controller
         renderer.RenderingOptions.TextFooter.CenterText = "Dani Nails";
         renderer.RenderingOptions.TextFooter.RightText = "{page} de {total-pages}";
         //espaçamento entre as bordas da pagina
-        renderer.RenderingOptions.MarginTop = 10;
+        renderer.RenderingOptions.MarginTop = 0;
         renderer.RenderingOptions.MarginLeft = 5;
         renderer.RenderingOptions.MarginRight = 5;
-        renderer.RenderingOptions.MarginBottom = 5;
+        renderer.RenderingOptions.MarginBottom = 2;
 
         var pdfDocument = renderer.RenderHtmlAsPdf(htmlContent);
 
         return File(pdfDocument.Stream, "application/pdf", "Ficha Anamnese.pdf");
     }
-    private string RenderViewToString(string viewName, object? model) // Permite null
+    private string RenderViewToString(string viewName, object? model)
     {
         ViewData.Model = model;
         using (var writer = new StringWriter())
@@ -66,7 +59,7 @@ public class PdfController : Controller
                 ViewData,
                 TempData,
                 writer,
-                new HtmlHelperOptions() // Se necessário, remova essa linha
+                new HtmlHelperOptions() 
             );
             viewResult.View.RenderAsync(viewContext).GetAwaiter().GetResult();
             return writer.ToString();
