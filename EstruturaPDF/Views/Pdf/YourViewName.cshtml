@@ -196,20 +196,20 @@
             bottom: 50px;
             height: 40px;
             /* Altura do cabeçalho */
-            text-align: left;
+        @*text-align:left;display:flex;*@
         }
 
         .hr-custom {
             display: flex;
             width: 109%;
-            margin-left: -5%;
+            margin-left: 2%;
+            margin-top: -1px;
         }
     </style>
-    <header>
-        <img style='width:50px; height:50px; margin-right: 297px;' src="@imageBase64" alt='Ícone' />
-        <span style="text-align: center; vertical-align: top; line-height: 50px; margin-right: 236px;">Dani Nails</span>
-        <span style="text-align: center; vertical-align: top; line-height: 50px; ">Ficha Anamnese</span>
-        <br>
+    <header style="display: flex; align-items: center; justify-content: space-between;">
+        <img style="width: 50px; height: 50px; margin-right: 240px;" src="@imageBase64" alt='Ícone' />
+        <span style="text-align: center; vertical-align: top; line-height: 50px;">Dani Nails</span>
+        <span style="vertical-align: top; line-height: 50px;">Ficha Anamnese-Ana Clara["nomeCliente"]</span>
     </header>
 </head>
 
@@ -562,7 +562,16 @@
                 <br>
                 <span>Data Assinatura:</span>
                 <span>@Html.Raw(PdfHelper.FormatarData(data))</span>
-                <hr>
+                
+                <hr> 
+                <table>
+                    <thead>
+                        <tr>
+                            <td style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);">Nome do cliente: XXXXXX XXXXXXX </td>
+                            <td style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);">CPF do cliente: 000.000.000-00</td>
+                        </tr>
+                    </thead>
+                </table>
             </div>
             <table>
                 <thead>
